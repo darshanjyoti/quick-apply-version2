@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <title>Quick Apply</title>
+     <link rel="icon" href="https://quick-apply.darshan99.repl.co/static/icon.png" type="image/png">
+    <link rel="stylesheet" href="https://quick-apply.darshan99.repl.co/static/style.css">
+   
+  </head>
+  <body>
+    <div id = "container">
+    <header class="main-header">
+        <h1 class="header-title" id="animated-text">Quick Apply</h1>
+      <div class="header-buttons">
+        <button id="loginButton" onclick= "onLoginButtonClick()">Login</button>
+        <button id="registerButton">Register</button>
+      </div>
+    </header>
+    </div>
+    <div id = "img-div">
+    <img id = 'img' src="https://quick-apply.darshan99.repl.co/static/banner.jpg" alt="Header Image">
+      </div>
+    <div id = "down-div">
+    <h2>About Quick Apply</h2>
+    <p class = "content-box">Unlock Your Career Potential! 🚀 Explore a world of opportunities on Quick Apply, where recruiters seamlessly post openings, and you effortlessly apply to your dream job. Elevate your career journey with us—where passion meets profession! ✨ </p>
+    <h2>Open Positions</h2>
+      <!-- Dynamic Job Boxes -->
+      {% for job in job_details_list[:3] %}
+      <div class="job-box">
+          <h3>{{ job['title'] }}</h3>
+          <p>Location: {{ job['location'] }}</p>
+          <p>Salary: {{ job['salary'] }}</p>
+         <button class="apply-button" onclick="redirectToJobDetails({{ job['id'] }})">Details</button>
+      </div>
+      {% endfor %}
+      <!-- Button to Show All Jobs -->
+      <button id="showAllButton" onclick="showAllJobs()">Show All</button>
+    </div>
+    <footer>
+      <button id ="button" onclick="openContactEmail()">Contact Us</button>
+    </footer>
+     <script src="https://quick-apply.darshan99.repl.co/static/script.js"></script>
+  </body>
+</html>
