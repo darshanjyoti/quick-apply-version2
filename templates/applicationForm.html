@@ -1,0 +1,74 @@
+<!-- applicationForm.html -->
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Form - Quick Apply</title>
+    <link rel="icon" href="https://quick-apply-version2.darshan99.repl.co/static/icon.png" type="image/png">
+    <link rel="stylesheet" href="https://quick-apply-version2.darshan99.repl.co/static/applicationForm.css">
+</head>
+
+<body>
+  <div id="container">
+    <header class="main-header">
+      <a href="/home">
+        <h1 class="header-title" id="animated-text">Quick Apply</h1>
+      </a>
+    </header>
+  </div>
+  <div id="down-div">
+    <div class="job-details">
+      <h2>{{ job['title'] }}</h2>
+      <p class="salary">Salary: {{ job['salary'] }}</p>
+      <div class="section">
+        <h3>Job Details</h3>
+        <p>{{ job['jobdetails'] }}</p>
+      </div>
+    </div>
+    <div class="application-form">
+      <h2>Application Form</h2>
+      <form action="/job/{{ job['id'] }}/submit" method = "post" onsubmit="return validateForm()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+
+        <label for="education">Education:</label>
+        <input type="text" id="education" name="education" required>
+
+        <label for="workExperience">Work Experience:</label>
+        <textarea id="workExperience" name="workExperience" rows="4" required></textarea>
+
+        <label for="linkedin">LinkedIn Profile:</label>
+        <input type="text" id="linkedin" name="linkedin">
+
+        <label for="resumeLink">Resume Link:</label>
+        <input type="url" id="resumeLink" name="resumeLink" required>
+
+        <label for="accomplishments">Other Accomplishments:</label>
+        <textarea id="accomplishments" name="accomplishments" rows="4"></textarea>
+
+        <button type="submit">Submit Application</button>
+      </form>
+    </div>
+  </div>
+  <footer>
+    <button id="Contactbutton" onclick="openContactEmail('{{ job['contactemail'] }}')">Contact Us</button>
+  </footer>
+  <script src="https://quick-apply-version2.darshan99.repl.co/static/application-form-script.js"></script>
+  <script>
+    function validateForm() {
+      // Add custom validation logic if needed
+      return true; // Return false to prevent form submission
+    }
+  </script>
+</body>
+</html>

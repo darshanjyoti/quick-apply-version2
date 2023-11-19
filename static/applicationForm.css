@@ -1,0 +1,150 @@
+/* application-form-style.css */
+.header-title{
+font-size : 45px;
+font-family: 'Arial', sans-serif;
+font-weight: normal;
+text-align: center;
+color: blue;
+}
+.main-header::before,
+.main-header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 15%;
+}
+#showAllButton:hover {
+    background-color: #2c3e50;
+    transform: translateY(-5px);
+}
+
+@keyframes popInAndOut {
+    0%, 20%, 50%, 80%, 100% {
+        transform: scale(1);
+        color: #00f; /* Blue color when not scaling */
+    }
+    40% {
+        transform: scale(1.2);
+        color: #f80; /* Orange color during scaling */
+    }
+    60% {
+        transform: scale(1.1);
+    }
+}
+
+.header-title {
+    position: relative;
+    overflow: hidden;
+    animation: popInAndOut 4s linear infinite;
+}
+
+.main-header::before {
+  left: 0;
+  background: linear-gradient(to right, #3498db, transparent);
+  animation: bounceInLeft 2s ease infinite;
+}
+
+.main-header::after {
+  right: 0;
+  background: linear-gradient(to left, #5920df, transparent);
+  animation: bounceInRight 2s ease infinite;
+}
+
+@keyframes bounceInLeft {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(30px);
+  }
+  60% {
+    transform: translateX(15px);
+  }
+}
+
+@keyframes bounceInRight {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(-30px);
+  }
+  60% {
+    transform: translateX(-15px);
+  }
+}
+
+#down-div {
+  display: flex;
+  flex-direction: column; /* Change from space-between to column */
+  align-items: center; /* Align items in the center vertically */
+  padding: 20px;
+}
+
+.job-details,
+.application-form {
+  width: 100%; /* Full width */
+  background-color: #e6e0e0;
+  padding: 20px;
+  margin-bottom: 20px; /* Add margin between job details and application form */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+/* Add hover effect */
+.job-details:hover {
+transform: translateY(-7px); /* Move the box up by 5 pixels */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 10px;
+}
+
+input,
+textarea {
+  margin-bottom: 10px;
+  padding: 8px;
+  display: block;
+  width: 100%;
+}
+
+button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+  background-color: #2c3e50;
+  transform: translateY(-5px);
+}
+
+footer {
+  margin-top: 20px;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+#Contactbutton {
+    background-color: purple;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    text-align: center
+}
+
+#Contactbutton:hover {
+    background-color: #8a2be2; /* Brighter purple on hover */
+    transform: translateY(-5px); /* Move the button up by 5 pixels on hover */
+}
+

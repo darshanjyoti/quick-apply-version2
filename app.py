@@ -1,100 +1,66 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for, session
+from database import load_jobs_from_database, add_application_to_database, load_usersinfo_from_database
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'
+error_message = ""
 
+result = load_jobs_from_database()
+# Convert each tuple to a dictionary
 job_details_list = [
     {
-        "id": 1,
-        "contactEmail": "darshanjyotitalukdar@gmail.com",
-        "title": "Software Developer",
-        "location": "San Francisco, USA",
-        "salary": "$80,000 - $100,000",
-        "job_details":
-        "Design, implement, and maintain software applications. Collaborate with cross-functional teams to define, design, and ship new features.",
-        "key_skills": ["Python", "JavaScript", "Database Management"],
-        "company_details": {
-            "name": "Tech Solutions Inc.",
-            "industry": "Information Technology",
-            "size": "5000+ employees",
-            "website": "https://techsolutions.com",
-        },
-    },
-    {
-        "id": 2,
-        "contactEmail": "darshanjyotitalukdar@gmail.com",
-        "title": "Data Scientist",
-        "location": "New York, USA",
-        "salary": "$90,000 - $120,000",
-        "job_details":
-        "Apply statistical and machine learning techniques to analyze and interpret complex data sets. Collaborate with data engineers to develop effective data pipelines.",
-        "key_skills": ["Machine Learning", "Data Visualization", "Statistics"],
-        "company_details": {
-            "name": "Data Insights Co.",
-            "industry": "Data Analytics",
-            "size": "1000+ employees",
-            "website": "https://datainsights.com",
-        },
-    },
-    {
-        "id": 3,
-        "contactEmail": "darshanjyotitalukdar@gmail.com",
-        "title": "UX/UI Designer",
-        "location": "London, UK",
-        "salary": "£60,000 - £80,000",
-        "job_details":
-        "Create user-centric designs for web and mobile applications. Conduct user research and gather feedback to enhance user experience.",
-        "key_skills": ["UI/UX Design", "Prototyping", "Adobe Creative Suite"],
-        "company_details": {
-            "name": "Design Innovators Ltd.",
-            "industry": "Design",
-            "size": "200+ employees",
-            "website": "https://designinnovators.com",
-        },
-    },
-    {
-        "id": 4,
-        "contactEmail": "darshanjyotitalukdar@gmail.com",
-        "title": "Marketing Specialist",
-        "location": "Paris, France",
-        "salary": "€70,000 - €90,000",
-        "job_details":
-        "Develop and implement marketing strategies. Analyze market trends and competitor activities to identify opportunities.",
-        "key_skills": ["Digital Marketing", "SEO", "Social Media Management"],
-        "company_details": {
-            "name": "Marketing Pros Co.",
-            "industry": "Marketing",
-            "size": "300+ employees",
-            "website": "https://marketingpros.com",
-        },
-    },
-    {
-        "id": 5,
-        "contactEmail": "darshanjyotitalukdar@gmail.com",
-        "title": "Backend Developer",
-        "location": "Paris, France",
-        "salary": "€70,000 - €90,000",
-        "job_details":
-        "Build and maintain scalable and efficient server-side applications. Collaborate with front-end developers to integrate user-facing elements.",
-        "key_skills": ["Java", "Spring Boot", "RESTful APIs"],
-        "company_details": {
-            "name": "Innovative Tech Solutions Ltd.",
-            "industry": "Information Technology",
-            "size": "1500+ employees",
-            "website": "https://innovativetechsolutions.com",
-        },
-    },
-    # Add more job details as needed
+        'id': row[0],
+        'title': row[1],
+        'location': row[2],
+        'salary': row[3],
+        'currancy': row[4],
+        'jobdetails': row[5],
+        'responsibilities': row[6],
+        'requirements': row[7],
+        'companydetails': row[8],
+        'contactemail': row[9],
+        # Add other keys as needed
+    } for row in result
 ]
-
-
-@app.route("/")
-def hello():
-  return render_template('home.html', job_details_list=job_details_list)
-  
-@app.route("/login")
+#root route or login
+@app.route("/", methods=['GET', 'POST'])
 def login():
-  # Render the all.html template with all job details
+  if request.method == 'POST':
+    username = request.form.get('username')
+    password = request.form.get('password')
+
+    # Check if the provided username and password match any user in the database
+    if authenticate_user(username, password):
+      session['logged_in'] = True
+      session['username'] = username  # Store the username in the session for later use
+      return redirect(url_for('home'))
+    else:
+      error_message = 'Invalid credentials'
+      return render_template('login.html', error=error_message)
+
   return render_template('login.html')
+
+# Logout route
+@app.route("/logout")
+def logout():
+    session.pop('logged_in', None)
+    session.pop('username', None)
+    return redirect(url_for('login'))
+
+@app.route("/home")
+def home():
+  return render_template('home.html', job_details_list=job_details_list)
+
+
+def authenticate_user(username, password):
+  users = load_usersinfo_from_database()
+  return any(user[0] == username and user[1] == password for user in users)
+
+
+def is_user_logged_in():
+  return session.get('logged_in', False)
+
+
 
 @app.route("/all-jobs")
 def all_jobs():
@@ -105,7 +71,8 @@ def all_jobs():
 @app.route("/job/<int:job_id>")
 def job_details(job_id):
   # Find the job details with the specified ID
-  job = next((job for job in job_details_list if job['id'] == job_id), None)
+  job = next((job for job in job_details_list if job['id'] == int(job_id)),
+             None)
 
   if job:
     # Render the job_details.html template with job details
@@ -113,6 +80,31 @@ def job_details(job_id):
   else:
     # Return a 404 error if job ID is not found
     return render_template('404.html'), 404
+
+
+@app.route("/application/<int:job_id>")
+def applicationformbyjobid(job_id):
+  # Find the job details with the specified ID
+  job = next((job for job in job_details_list if job['id'] == int(job_id)),
+             None)
+
+  if job:
+    # Render the job_details.html template with job details
+    return render_template('applicationForm.html', job=job)
+  else:
+    # Return a 404 error if job ID is not found
+    return render_template('404.html'), 404
+
+
+@app.route("/job/<int:job_id>/submit", methods=['post'])
+def submitapplicationform(job_id):
+  data = request.form
+  #store data in db
+  job = next((job for job in job_details_list if job['id'] == int(job_id)),
+             None)
+  add_application_to_database(job_id, data)
+  #display submit succesfully
+  return render_template('submit_succesfull.html', job=job_id)
 
 
 if __name__ == '__main__':

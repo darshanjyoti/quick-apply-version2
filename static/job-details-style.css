@@ -1,11 +1,3 @@
-/* style.css */
-
-body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-}
 
 footer {
     text-align: center;
@@ -13,12 +5,9 @@ footer {
     background-color: #333;
     color: white;
 }
-#container{
-max-width: 800px;
-margin: 0 auto 0 auto;
-}
+
 button {
-    background-color: purple;
+    background-color: #ff8c00;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -26,70 +15,66 @@ button {
     transition: background-color 0.3s;
 }
 
+button:hover {
+    background-color: #e07d00;
+}
+#img {
+  width: 100%; /* Horizontal fit */
+  height: 450px; /* Adjust the vertical size as needed */
+  object-fit: cover; /* This property specifies how the image should be resized to fit its container */
+}
+#container{
+max-width: 800px;
+margin: 0 auto 0 auto;
+}
+#img-div{
+max-width: 100%;
+margin: 0 auto 0 auto;
+}
+#down-div{
+max-width: 800px;
+margin: 0 auto 0 auto;
+}
+#button {
+    background-color: purple;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    text-align: center
+}
+
 #button:hover {
     background-color: #8a2be2; /* Brighter purple on hover */
     transform: translateY(-5px); /* Move the button up by 5 pixels on hover */
 }
-
-#container {
-    width: 80%;
-    margin: 0 auto;
+.header-title{
+font-size : 45px;
+font-family: 'Arial', sans-serif;
+font-weight: normal;
+text-align: center;
+color: blue;
+}
+h2{
+font-size : 35px;
+font-family: 'Arial', sans-serif;
+font-weight: normal;
+text-align: center;
+color: grey;
+}
+.content-box {
+max-width: 600px;
+margin: 20px auto;
+padding: 20px;
+background-color: #e6e0e0;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+transition: transform 0.3s ease-in-out; /* Add a transition for smooth effect */
 }
 
-.animated-text {
-    animation: colorChange 5s infinite alternate;
-}
-
-#down-div {
-    padding: 20px;
-}
-
-.job-details {
-    background-color: #e6e0e0;
-    padding: 5px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-}
-
-.job-details:hover {
-    transform: scale(1.02);
-}
-
-h2 {
-    color: #5e5e5e;
-}
-
-.location,
-.salary {
-    color: #777;
-    margin: 0;
-}
-
-.section {
-    margin-top: 20px;
-}
-
-h3 {
-    color: #5e5e5e;
-}
-
-.skills {
-    list-style: none;
-    padding: 0;
-}
-
-.skills li {
-    margin-bottom: 5px;
-}
-
-@keyframes colorChange {
-    0% {
-        color: #3498db;
-    }
-    100% {
-        color: #2ecc71;
-    }
+/* Add hover effect */
+.content-box:hover {
+transform: translateY(-15px); /* Move the box up by 5 pixels */
 }
 .main-header::before {
 content: "";
@@ -138,8 +123,109 @@ animation: bounceInRight 2s ease infinite;
 }
 }
 
+.header-buttons {
+    position: absolute;
+    top: 40px;
+    right: 150px;
+    display: flex;
+    align-items: center;
+}
+
+#loginButton,
+#registerButton {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-right: 10px; /* Adjust the margin as needed */
+    z-index: 2; /* Ensure the buttons appear above other elements */
+}
+
+#loginButton:hover,
+#registerButton:hover {
+    background-color: #2c3e50;
+    transform: translateY(-5px);
+}
+/* Add styles for the reusable job box */
+.job-box {
+    background-color:#e6e0e0;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; /* Center the text */
+}
+/* Add hover effect */
+.job-box:hover {
+transform: translateY(-7px); /* Move the box up by 5 pixels */
+}
+.apply-button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.apply-button:hover {
+    background-color: #2c3e50;
+    transform: translateY(-5px);
+}
+/* Add styles for the "Show All" button */
+#showAllButton {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 50px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-top: 10px;
+}
+
+#showAllButton:hover {
+    background-color: #2c3e50;
+    transform: translateY(-5px);
+}
+
+@keyframes popInAndOut {
+    0%, 20%, 50%, 80%, 100% {
+        transform: scale(1);
+        color: #00f; /* Blue color when not scaling */
+    }
+    40% {
+        transform: scale(1.2);
+        color: #f80; /* Orange color during scaling */
+    }
+    60% {
+        transform: scale(1.1);
+    }
+}
+
+.header-title {
+    position: relative;
+    overflow: hidden;
+    animation: popInAndOut 4s linear infinite;
+}
 
 
+.job-details {
+    background-color: #e6e0e0;
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.job-details:hover {
+    transform: scale(1.02);
+}
 .apply-now-button {
     background-color: #3498db;
     color: white;

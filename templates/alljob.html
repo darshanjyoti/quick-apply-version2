@@ -3,14 +3,16 @@
 <html>
   <head>
     <title>Quick Apply</title>
-     <link rel="icon" href="https://quick-apply.darshan99.repl.co/static/icon.png" type="image/png">
-    <link rel="stylesheet" href="https://quick-apply.darshan99.repl.co/static/style.css">
-    <script src="https://quick-apply.darshan99.repl.co/static/script.js"></script>
+     <link rel="icon" href="https://quick-apply-version2.darshan99.repl.co/static/icon.png" type="image/png">
+    <link rel="stylesheet" href="https://quick-apply-version2.darshan99.repl.co/static/style.css">
+    <script src="https://quick-apply-version2.darshan99.repl.co/static/script.js"></script>
   </head>
   <body>
     <div id = "container">
       <header class="main-header">
+        <a href="/home">
           <h1 class="header-title" id="animated-text">Quick Apply</h1>
+        </a>
       </header>
       </div>
     <div id = "img-div">
@@ -25,7 +27,7 @@
       <div class="job-box">
           <h3>{{ job['title'] }}</h3>
           <p>Location: {{ job['location'] }}</p>
-          <p>Salary: {{ job['salary'] }}</p>
+          <p>Salary: {{job['currancy']}} {{ job['salary'] }}</p>
          <button class="apply-button" onclick="redirectToJobDetails({{ job['id'] }})">Details</button>
       </div>
       {% endfor %}
@@ -33,6 +35,6 @@
     <footer>
       <button id ="button" onclick="openContactEmail()">Contact Us</button>
     </footer>
-     <script src="https://quick-apply.darshan99.repl.co/static/script.js"></script>
+     <script src="https://quick-apply-version2.darshan99.repl.co/tatic/script-all-job.js"></script>
   </body>
 </html>

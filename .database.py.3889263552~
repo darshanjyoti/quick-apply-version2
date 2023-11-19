@@ -1,0 +1,38 @@
+from sqlalchemy import create_engine, text
+
+db_connection_string = "mysql+pymysql://yvyf63zfzwdkzdmi3f07:pscale_pw_bIcLN0uQXFoxN8BIWJEUkd7DJ3m2DwuB1wvdSKXXfaX@aws.connect.psdb.cloud/quick-apply?charset=utf8mb4"
+engine = create_engine(db_connection_string,
+                      connect_args={
+                          "ssl": {
+                              "ssl_ca" : "/etc/ssl/cert.pem"
+                          }
+                      })
+
+
+
+def load_jobs_from_database():
+  with engine.connect() as conn:
+    result = conn.execute(text("select * from jobs"))
+    jobs = []
+    for row in result.all():
+      jobs.append(row)
+    return jobs
+
+def add_application_to_database(job_id, data):
+  with engine.connect() as conn:
+    query = text("INSERT INTO applications (job_id, full_name, email, phone, education, workexperience, linkedin, resumelink, accomplishment) VALUES (:job_id, :full_name, :email, :phone, :education, :workexperience, :linkedin, :resumelink, :accomplishment)")
+    conn.execute(query, 
+                 job_id=job_id, 
+                 full_name=data['full_name'],
+                 email=data['email'], 
+                 phone=data['phone'], 
+                 education=data['education'],
+                 workexperience=data['workexperience'],
+                 linkedin=data['linkedin'], resumelink=data['resumelink'], accomplishment=data['accomplishment'])
+    
+
+
+
+
+
+

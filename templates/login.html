@@ -6,17 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Quick Apply</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://quick-apply-version2.darshan99.repl.co/static/login.css">
 </head>
 
 <body>
     <div id="container">
         <header class="main-header">
             <h1 class="header-title animated-text">Quick Apply</h1>
+            <!-- Add the info button and tooltip container -->
+            <div class="info-container">
+                <div id="info-button">&#8505;</div>
+                <span id="info-tooltip">Discover career opportunities with Quick Apply, your go-to job listing platform! Log in to explore exclusive job openings or create an account for a seamless application experience. Your dream job awaits – join us on the path to professional success! 🚀</span>
+            </div>
         </header>
         <div id="login-form">
             <h2>Login</h2>
-            <form action="/login" method="post">
+            <form action="/" method="post">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
 
@@ -25,13 +30,16 @@
 
                 <button type="submit">Login</button>
             </form>
+          {% if error %}
+              <p class="error-message">{{ error }}</p>
+          {% endif %}
             <p>Don't have an account? <a href="/register">Register here</a></p>
         </div>
         <footer>
             <button id="button">Contact Us</button>
         </footer>
     </div>
-    <script src="https://quick-apply.darshan99.repl.co/static/script.js"></script>
+    <script src="https://quick-apply-version2.darshan99.repl.co/static/script.js"></script>
 </body>
 
 </html>

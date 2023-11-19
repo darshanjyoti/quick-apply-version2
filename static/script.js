@@ -1,16 +1,19 @@
 var isLoggedIn = true;
 document.getElementById('showAllButton').addEventListener('click', function() {
     // Redirect to the /all route
-    isLoggedIn = true;
-    window.location.href = '/all-jobs';
+      window.location.href = '/all-jobs';
 });
 
 function onLoginButtonClick() {
    window.location.href = '/login';
 }
+
+function onLogOutButtonClick() {
+   window.location.href = '/logout';
+}
 function redirectToJobDetails(jobId) {
     // Redirect to the job details page with the specific job ID
-  if (isLoggedIn) {
+  if (1) {
     window.location.href = '/job/' + jobId;
   }
   else{
